@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三角函数恒等式与方程 · 逐题拆解详解</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#f5f3ee;
+  background-image:radial-gradient(circle at 12% 8%, #e9f0ec 0%, transparent 42%),
+                   radial-gradient(circle at 88% 4%, #f7ece0 0%, transparent 38%);
+  background-repeat:no-repeat;
+  color:#22262b;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+  font-size:16px;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+:root{
+  --paper:#ffffff;
+  --ink:#22262b;
+  --soft:#5b6470;
+  --line:#e7e2d7;
+  --teal:#0e6b6b;      --teal-bg:#e7f2f1;
+  --amber:#a76b16;     --amber-bg:#fdf4e3;
+  --red:#b0413c;       --red-bg:#fdeeec;
+  --green:#1c7a5c;     --green-bg:#e8f5ef;
+  --blue:#28598c;      --blue-bg:#eaf1f9;
+  --violet:#6a4a9e;    --violet-bg:#f1ecfa;
+  --shadow:0 1px 2px rgba(30,25,15,.04),0 8px 24px -12px rgba(30,25,15,.18);
+}
+
+/* ---------- 阅读进度条 ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99;
+  background:linear-gradient(90deg,#0e6b6b,#3a9b8f,#c58a2e);transition:width .1s linear}
+
+/* ---------- 顶部 ---------- */
+.hero{position:relative;overflow:hidden;background:#14343a;color:#f3efe6;padding:54px 24px 46px}
+.hero::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(900px 320px at 80% -20%,rgba(196,150,60,.30),transparent 65%),
+             radial-gradient(700px 300px at 5% 120%,rgba(58,155,143,.28),transparent 60%);
+  pointer-events:none}
+.hero-inner{position:relative;max-width:1180px;margin:0 auto}
+.kicker{font-size:12px;letter-spacing:.34em;color:#8fc0b8;font-weight:600;margin-bottom:16px}
+.hero h1{margin:0;font-size:clamp(28px,4.6vw,44px);line-height:1.3;font-weight:800;letter-spacing:.5px}
+.hero h1 span{color:#e7c07a}
+.hero-sub{margin:16px 0 0;max-width:640px;color:#c3cfc9;font-size:15px;line-height:1.9}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero-meta span{font-size:13px;padding:5px 13px;border-radius:999px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#dfe7e2}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{cursor:pointer;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:600;
+  font-family:inherit;border:1px solid transparent;transition:.18s}
+.btn.primary{background:#e7c07a;color:#14343a;border-color:#e7c07a}
+.btn.primary:hover{background:#f0cf95;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:#e6ece8;border-color:rgba(255,255,255,.3)}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+
+/* ---------- 布局 ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:38px 24px 90px;
+  display:grid;grid-template-columns:242px minmax(0,1fr);gap:38px;align-items:start}
+.toc{position:sticky;top:26px;font-size:14px;min-width:0}
+main{min-width:0}
+.toc-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:18px 16px;box-shadow:var(--shadow)}
+.toc-title{font-size:11px;letter-spacing:.22em;color:#9aa3ac;font-weight:700;margin:0 0 12px 6px}
+.toc a{display:flex;align-items:center;gap:9px;text-decoration:none;color:#4c5560;
+  padding:7px 9px;border-radius:9px;line-height:1.5;transition:.15s;font-weight:500}
+.toc a:hover{background:#f2f0ea;color:#14343a}
+.toc a.active{background:var(--teal-bg);color:var(--teal);font-weight:700}
+.toc .dot{width:6px;height:6px;border-radius:50%;background:#c8cece;flex:0 0 auto}
+.toc a.active .dot{background:var(--teal)}
+.toc .ring{margin:14px 6px 2px;font-size:12px;color:#8b939c}
+.bar{height:6px;border-radius:99px;background:#eae7df;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#0e6b6b,#48a396);transition:width .35s}
+@media(max-width:940px){
+  .wrap{grid-template-columns:minmax(0,1fr);padding-top:24px;gap:22px}
+  .toc{position:static}
+  .toc a{display:flex;width:100%;margin:0}
+}
+
+/* ---------- 章节 ---------- */
+section{margin-bottom:34px;scroll-margin-top:24px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);overflow:hidden}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--line)}
+.qnum{flex:0 0 auto;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+  font-weight:800;font-size:17px;color:#fff;background:linear-gradient(150deg,#1a7b78,#0c5656);
+  box-shadow:0 6px 14px -6px rgba(14,107,107,.7)}
+.qnum.proof{background:linear-gradient(150deg,#8a5bb0,#5f3c86);box-shadow:0 6px 14px -6px rgba(106,74,158,.7)}
+.qnum.eq{background:linear-gradient(150deg,#c58a2e,#9a6512);box-shadow:0 6px 14px -6px rgba(167,107,22,.7)}
+.qnum.val{background:linear-gradient(150deg,#3a7bbf,#245586);box-shadow:0 6px 14px -6px rgba(40,89,140,.7)}
+.qhd-main{flex:1 1 auto;min-width:0}
+.qhd-title{margin:0;font-size:19px;font-weight:750;letter-spacing:.2px;line-height:1.5}
+.qhd-title small{display:block;font-size:13px;font-weight:500;color:#8b939c;margin-top:4px;letter-spacing:0}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.tag{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.04em}
+.tag.marks{background:var(--amber-bg);color:var(--amber);border:1px solid #f0dcbb}
+.tag.type{background:#eef1f4;color:#55606c;border:1px solid #e0e5ea}
+.tag.easy{background:var(--green-bg);color:var(--green);border:1px solid #cfe8dc}
+.tag.mid{background:var(--blue-bg);color:var(--blue);border:1px solid #d3e1f0}
+.tag.hard{background:var(--red-bg);color:var(--red);border:1px solid #f2d5d2}
+.card-bd{padding:24px 26px 26px}
+@media(max-width:600px){
+  .card-hd{padding:18px 16px 14px}
+  .card-bd{padding:18px 16px 22px}
+}
+
+/* ---------- 题目框 ---------- */
+.qbox{position:relative;background:#fdfbf5;border:1px solid #ece5d5;border-left:4px solid #cfa752;
+  border-radius:12px;padding:18px 22px;margin-bottom:22px}
+.qbox::before{content:"题目";position:absolute;top:-9px;left:16px;background:#cfa752;color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:.1em;padding:1px 9px;border-radius:99px}
+.qbox p{margin:6px 0}
+.qbox .sub{font-weight:700;color:#7a6320}
+
+/* ---------- 结构块 ---------- */
+.block{border-radius:14px;padding:16px 20px;margin:18px 0;border:1px solid}
+.block h4{margin:0 0 10px;font-size:14px;font-weight:800;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.think{background:var(--blue-bg);border-color:#cfe0f2}
+.think h4{color:var(--blue)}
+.ans{background:var(--green-bg);border-color:#c6e5d7}
+.ans h4{color:var(--green)}
+.err{background:var(--red-bg);border-color:#f2d3cf}
+.err h4{color:var(--red)}
+.note{background:var(--amber-bg);border-color:#f0dcbb}
+.note h4{color:var(--amber)}
+.tip{background:var(--violet-bg);border-color:#e0d5f2}
+.tip h4{color:var(--violet)}
+.block p{margin:8px 0}
+.block p:first-of-type{margin-top:0}
+.block p:last-child{margin-bottom:0}
+
+/* ---------- 步骤 ---------- */
+.steps{list-style:none;counter-reset:st;margin:16px 0 4px;padding:0}
+.steps>li{counter-increment:st;position:relative;padding:0 0 22px 46px}
+.steps>li::before{content:counter(st);position:absolute;left:0;top:1px;width:28px;height:28px;
+  border-radius:50%;background:#eaf3f1;color:#0e6b6b;border:1.5px solid #b9dcd6;
+  display:grid;place-items:center;font-size:13px;font-weight:800;font-family:ui-monospace,monospace}
+.steps>li::after{content:"";position:absolute;left:13.5px;top:32px;bottom:6px;width:1.5px;background:#e3ece9}
+.steps>li:last-child{padding-bottom:4px}
+.steps>li:last-child::after{display:none}
+.st-t{font-weight:750;color:#17514f;margin-bottom:4px;font-size:15.5px}
+.st-c{color:#3c444d;font-size:15.5px}
+.st-c p{margin:6px 0}
+
+/* ---------- 数学 ---------- */
+.m,.eq{font-family:"Cambria Math","Latin Modern Math","Times New Roman",Cambria,Georgia,serif;
+  font-size:1.06em;letter-spacing:.4px;white-space:nowrap;color:#12303a}
+.eq{display:block;text-align:center;font-size:1.16em;margin:14px auto;padding:10px 14px;
+  background:#fbfaf6;border-radius:10px;border:1px dashed #e5ddca;white-space:normal;overflow-x:auto}
+.eq.wide{white-space:nowrap}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+  margin:0 .16em;line-height:1.25}
+.fr>.n{border-bottom:1.4px solid currentColor;padding:0 .3em}
+.fr>.d{padding:0 .3em}
+.rt{border-top:1px solid currentColor;padding:0 .12em;margin-left:-.06em}
+.mi{font-style:italic}
+.hl{background:linear-gradient(transparent 58%,#ffec9e 58%);padding:0 2px;border-radius:2px}
+
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+th,td{border:1px solid #e3ded2;padding:8px 10px;text-align:center}
+thead th{background:#f4f1e9;font-weight:750;color:#4a5145;font-size:13.5px}
+tbody tr:nth-child(even){background:#fcfbf7}
+td.q{background:#f4f8f7;font-weight:700;color:#0e6b6b}
+.pos{color:#1c7a5c;font-weight:800}
+.neg{color:#b0413c;font-weight:800}
+
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:16px 0}
+.fcard{background:#fbfaf6;border:1px solid #ece7db;border-radius:12px;padding:14px 16px}
+.fcard h5{margin:0 0 9px;font-size:13.5px;color:#0e6b6b;letter-spacing:.05em}
+.fcard .line{padding:3px 0;font-size:15px}
+
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:12px 0;font-size:15px}
+.kv dt{font-weight:750;color:#5b6470}
+.kv dd{margin:0}
+
+ul.plain{margin:10px 0;padding-left:22px}
+ul.plain li{margin:6px 0}
+.cross{color:#b0413c;font-weight:800}
+.check{color:#1c7a5c;font-weight:800}
+
+/* ---------- 完成勾选 ---------- */
+.done{display:flex;align-items:center;gap:9px;margin-top:22px;padding-top:16px;
+  border-top:1px dashed #e7e2d7;font-size:14px;color:#7a828b}
+.done input{width:17px;height:17px;accent-color:#0e6b6b;cursor:pointer}
+.lib{margin:14px 0 0;padding:14px 18px;border-radius:12px;background:#fbfaf6;
+  border:1px solid #ece7db;font-size:15px;color:#3c444d}
+.lib b{color:#0e6b6b}
+
+/* ---------- 只看题目模式 ---------- */
+body.solo .sol{display:none!important}
+body.solo .hero-actions .btn.primary{background:#f0cf95}
+
+footer{margin-top:44px;padding:26px;text-align:center;color:#9aa0a8;font-size:13px;
+  border-top:1px solid var(--line)}
+
+@media(max-width:700px){
+  .m{white-space:normal}
+  .eq{font-size:1.06em;padding:10px 8px}
+  .fr{margin:0 .1em}
+  .hero{padding:40px 18px 34px}
+  .kicker{letter-spacing:.2em;font-size:11px}
+  table{font-size:13.5px}
+  th,td{padding:6px 6px}
+  .steps>li{padding-left:38px}
+}
+@media print{
+  .progress,.toc,.hero-actions,.done,footer .no-print{display:none!important}
+  body{background:#fff}
+  .wrap{display:block;padding:0}
+  .card{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .hero{background:#fff;color:#111;padding:10px 0}
+  .hero h1 span{color:#8a6512}
+  .hero-sub,.hero-meta span{color:#444}
+  .hero-meta span{border-color:#ccc;background:#f5f5f5}
+  .hero::after{display:none}
+  body.solo .sol{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker">MATH · TRIGONOMETRIC IDENTITIES &amp; EQUATIONS</div>
+    <h1>三角函数恒等式与方程<br><span>逐 题 拆 解</span></h1>
+    <p class="hero-sub">
+      依据你发来的试卷（第 4 ~ 8 题），把每一道题的<b>「拿到题先想什么 → 每一步为什么这样做 → 答案 → 容易掉进的坑」</b>
+      全部写清楚。适合基础一般、想自己一步步学懂的同学 —— 不跳步、不省略思路。
+    </p>
+    <div class="hero-meta">
+      <span>8 个小题</span>
+      <span>共 29 分</span>
+      <span>化简 · 求值 · 证明 · 解方程</span>
+      <span>建议用时 60 分钟</span>
+    </div>
+    <div class="hero-actions">
+      <button class="btn primary" id="modeBtn">🙈 先只看题目，自己试试</button>
+      <button class="btn ghost" onclick="window.print()">🖨 打印 / 存为 PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc">
+    <div class="toc-card">
+      <p class="toc-title">目 录</p>
+      <a href="#f"><i class="dot"></i>必备公式速查</a>
+      <a href="#q4"><i class="dot"></i>第 4 题 · 化简求值</a>
+      <a href="#q5"><i class="dot"></i>第 5 题 · 定象限求值</a>
+      <a href="#q6"><i class="dot"></i>第 6 题 · 分式恒等式证明</a>
+      <a href="#q7"><i class="dot"></i>第 7 题 · 解三角方程</a>
+      <a href="#q8"><i class="dot"></i>第 8 题 · 证明 + 解方程</a>
+      <a href="#sum"><i class="dot"></i>总结与自测</a>
+      <div class="ring">已掌握 <b id="cnt">0</b> / 8 小题
+        <div class="bar"><i id="bar"></i></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+  <!-- ======================= 公式速查 ======================= -->
+  <section id="f">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum" style="background:linear-gradient(150deg,#4d6b8a,#2b4257);box-shadow:0 6px 14px -6px rgba(43,66,87,.7)">★</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">必备公式速查<small>这 8 个小题全部只用下面这几组公式，先背熟，做题就是「查表 + 变形」</small></h3>
+          <div class="tags">
+            <span class="tag type">工具篇</span>
+            <span class="tag easy">做题前 3 分钟过一遍</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="formula-grid">
+          <div class="fcard">
+            <h5>① 倒数关系（三个，一一对应）</h5>
+            <div class="line m">sin θ · csc θ = 1</div>
+            <div class="line m">cos θ · sec θ = 1</div>
+            <div class="line m">tan θ · cot θ = 1</div>
+            <div class="line" style="color:#8b939c;font-size:13px;margin-top:8px">
+              用法：见到 csc 就换 sin，见到 sec 就换 cos，见到 cot 就换 tan。
+            </div>
+          </div>
+
+          <div class="fcard">
+            <h5>② 商的关系（把 tan、cot 拆成 sin、cos）</h5>
+            <div class="line m">tan θ = <span class="fr"><span class="n">sin θ</span><span class="d">cos θ</span></span></div>
+            <div class="line m">cot θ = <span class="fr"><span class="n">cos θ</span><span class="d">sin θ</span></span></div>
+            <div class="line" style="color:#8b939c;font-size:13px;margin-top:8px">
+              化简题的万能第一步：<b>全部化成 sin 和 cos</b>，几乎不会走错。
+            </div>
+          </div>
+
+          <div class="fcard">
+            <h5>③ 平方关系（化简题的主角）</h5>
+            <div class="line m">sin²θ + cos²θ = 1</div>
+            <div class="line m">1 + tan²θ = sec²θ</div>
+            <div class="line m">1 + cot²θ = csc²θ</div>
+          </div>
+
+          <div class="fcard">
+            <h5>④ 平方关系的「变形」（题目直接考这个）</h5>
+            <div class="line m">sec²θ − tan²θ = 1</div>
+            <div class="line m">csc²θ − cot²θ = 1</div>
+            <div class="line m">sec²θ − 1 = tan²θ</div>
+            <div class="line m">csc²θ − 1 = cot²θ</div>
+            <div class="line" style="color:#8b939c;font-size:13px;margin-top:8px">
+              记住：<b>「大减小 = 1，大减 1 = 小的那个平方」</b>。
+            </div>
+          </div>
+
+          <div class="fcard">
+            <h5>⑤ 诱导公式 · 化任意角为 θ</h5>
+            <div class="line m">tan(<span class="fr"><span class="n">π</span><span class="d">2</span></span> − θ) = cot θ</div>
+            <div class="line m">cot(<span class="fr"><span class="n">π</span><span class="d">2</span></span> − θ) = tan θ</div>
+            <div class="line m">sin(<span class="fr"><span class="n">3π</span><span class="d">2</span></span> − θ) = − cos θ</div>
+            <div class="line m">cos(<span class="fr"><span class="n">3π</span><span class="d">2</span></span> − θ) = − sin θ</div>
+            <div class="line m">sec(2π − θ) = sec θ</div>
+            <div class="line m">sin(2π − θ) = − sin θ</div>
+          </div>
+
+          <div class="fcard">
+            <h5>⑥ 周期（解方程时决定「加多少」）</h5>
+            <div class="line m">sin θ、cos θ、sec θ、csc θ 周期 = 2π</div>
+            <div class="line m">tan θ、cot θ 周期 = π</div>
+            <div class="line" style="color:#8b939c;font-size:13px;margin-top:8px">
+              <b>这一步最容易丢分！</b>tan 型方程要加 nπ，sin 型方程加 2π（但一个周期内有两个解）。
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin:26px 0 4px;font-size:15px;color:#0e6b6b">⑦ 象限符号表 —— 定符号的唯一依据</h4>
+        <p style="margin:6px 0 2px;font-size:14.5px;color:#5b6470">
+          口诀「<b>全 S T C</b>」：第一象限全部为正；第二象限 <b>S</b>in 为正；第三象限 <b>T</b>an 为正；第四象限 <b>C</b>os 为正。
+        </p>
+        <table>
+          <thead>
+            <tr><th>象限</th><th>θ 范围</th><th>sin / csc</th><th>cos / sec</th><th>tan / cot</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="q">第一</td><td class="m">0 &lt; θ &lt; π/2</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td></tr>
+            <tr><td class="q">第二</td><td class="m">π/2 &lt; θ &lt; π</td><td class="pos">+</td><td class="neg">−</td><td class="neg">−</td></tr>
+            <tr><td class="q">第三</td><td class="m">π &lt; θ &lt; 3π/2</td><td class="neg">−</td><td class="neg">−</td><td class="pos">+</td></tr>
+            <tr><td class="q">第四</td><td class="m">3π/2 &lt; θ &lt; 2π</td><td class="neg">−</td><td class="pos">+</td><td class="neg">−</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:14px;color:#8b6512;background:#fdf4e3;border:1px solid #f0dcbb;
+           border-radius:10px;padding:10px 14px;margin:8px 0 0">
+          ⚠️ 注意：<b>倒数关系的两个函数符号永远相同</b>（sin 与 csc、cos 与 sec、tan 与 cot）。
+          所以「cot θ &lt; 0」⇔「tan θ &lt; 0」，这一步在第 5 题直接用。
+        </p>
+
+        <h4 style="margin:26px 0 4px;font-size:15px;color:#0e6b6b">⑧ 特殊角三角函数值（第一象限背熟，其余用象限推符号）</h4>
+        <table>
+          <thead>
+            <tr><th>θ</th><th>0</th><th class="m">π/6 (30°)</th><th class="m">π/4 (45°)</th><th class="m">π/3 (60°)</th><th class="m">π/2 (90°)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="q">sin θ</td><td class="m">0</td><td class="m">1/2</td><td class="m">√2 / 2</td><td class="m">√3 / 2</td><td class="m">1</td></tr>
+            <tr><td class="q">cos θ</td><td class="m">1</td><td class="m">√3 / 2</td><td class="m">√2 / 2</td><td class="m">1/2</td><td class="m">0</td></tr>
+            <tr><td class="q">tan θ</td><td class="m">0</td><td class="m">√3 / 3</td><td class="m">1</td><td class="m">√3</td><td class="m">不存在</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:14px;color:#5b6470;margin:6px 0 0">
+          另外两个常用值：<span class="m">sin(π/2) = 1</span>、<span class="m">cos π = −1</span>、
+          <span class="m">sin(7π/6) = −1/2</span>、<span class="m">cos(7π/6) = −√3/2</span>（第 8 题答案用到）。
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 第 4 题 ======================= -->
+  <section id="q4">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum">4</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">化简下列各式<small>Simplify the following expressions</small></h3>
+          <div class="tags">
+            <span class="tag type">化简题</span>
+            <span class="tag marks">(a) 3 分 + (b) 4 分</span>
+            <span class="tag easy">难度 ★★☆</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="qbox">
+          <p><span class="sub">(a)</span> <span class="m">(csc²θ − 1)(tan²θ + 1)</span>　　<span style="color:#a0a6ad">(3 marks)</span></p>
+          <p><span class="sub">(b)</span> <span class="m">(cot θ + tan θ) ÷ csc θ</span>　　<span style="color:#a0a6ad">(4 marks)</span></p>
+          <p style="font-size:13.5px;color:#8b939c;margin-top:12px">
+            原卷上写作分式：<span class="m">(cot θ + tan θ) / csc θ</span>
+          </p>
+        </div>
+
+        <div class="block think sol">
+          <h4>💡 (a) 拿到题先想这三件事</h4>
+          <p><b>1. 括号里是什么型？</b>　<span class="m">csc²θ − 1</span> 和 <span class="m">tan²θ + 1</span> 都是
+             「平方 ± 1」的形状 —— 这是<b>平方关系</b>的标准长相，不是巧合。</p>
+          <p><b>2. 哪个公式长得一模一样？</b></p>
+          <p style="padding-left:14px"><span class="m">1 + cot²θ = csc²θ</span>　→ 移项得　<span class="m">csc²θ − 1 = cot²θ</span></p>
+          <p style="padding-left:14px"><span class="m">1 + tan²θ = sec²θ</span>　→ 本身就是公式</p>
+          <p><b>3. 两个都换掉之后会怎样？</b>　变成 <span class="m">cot²θ · sec²θ</span>，一个含 cos/sin 的倒数、一个含 cos 的倒数，
+             乘起来一定约掉 cos —— 所以<b>答案里只剩 sin（也就是 csc）</b>。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">用平方关系把第一个括号换掉</div>
+            <div class="st-c">
+              <p>由 <span class="m">1 + cot²θ = csc²θ</span>，两边同时减 1：</p>
+              <div class="eq m">csc²θ − 1 = cot²θ</div>
+              <p style="font-size:14px;color:#8b939c">👉 这一步是把"不熟悉的名字"换成"熟悉的名字"，是化简题的核心动作。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">第二个括号本身就是公式</div>
+            <div class="st-c">
+              <p>由 <span class="m">1 + tan²θ = sec²θ</span>，所以</p>
+              <div class="eq m">tan²θ + 1 = sec²θ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">代入原式（注意：两个括号之间是<b>乘</b>）</div>
+            <div class="st-c">
+              <div class="eq m">原式 = cot²θ · sec²θ</div>
+              <p style="font-size:14px;color:#b0413c"><b>⚠️ 最常错的地方：</b>这里千万不要写成分数！很多同学把
+                 <span class="m">cot²θ·sec²θ</span> 抄成 <span class="m">cot²θ / sec²θ</span>，分数与乘法一混，答案立刻变形。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">把 cot、sec 都化成 sin、cos</div>
+            <div class="st-c">
+              <div class="eq m">cot²θ · sec²θ =
+                <span class="fr"><span class="n">cos²θ</span><span class="d">sin²θ</span></span>
+                ×
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span>
+              </div>
+              <p><span class="m">cos²θ</span> 上下约掉：</p>
+              <div class="eq m">=
+                <span class="fr"><span class="n">1</span><span class="d">sin²θ</span></span>
+                = csc²θ</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ (a) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">(csc²θ − 1)(tan²θ + 1) = csc²θ</span></p>
+        </div>
+
+        <div class="block tip sol">
+          <h4>🔁 解法二（就是你卷面上想走的那条路，只需一步修正）</h4>
+          <p>你写的是 <span class="m">cot²θ (tan²θ + 1)</span>，这个开头<b>完全正确</b>！只要接着把括号<b>乘开</b>就行：</p>
+          <div class="eq m">cot²θ (tan²θ + 1) = cot²θ · tan²θ + cot²θ</div>
+          <p>而 <span class="m">cot²θ · tan²θ = (tan θ · cot θ)² = 1² = 1</span>（倒数关系），所以</p>
+          <div class="eq m">= 1 + cot²θ = csc²θ</div>
+          <p style="margin-top:10px"><b>对比你卷面上的错误：</b>你把它写成了
+             <span class="m">tan²θ / tan²θ + 1 / tan²θ</span>，即
+             <span style="color:#b0413c">「乘法被当成分母」+「漏乘」</span> 两个错误同时发生。记住：
+             <b>括号外的因式乘进去，是分别乘每一项，不产生分母。</b></p>
+        </div>
+
+        <div class="block think sol">
+          <h4>💡 (b) 拿到题先想什么</h4>
+          <p><b>1. 式子长什么样？</b>一个分式，分子是「cot + tan」，分子里两种函数混在一起，分母又是 csc。</p>
+          <p><b>2. 处理原则：</b>看到 <span class="m">tan / cot / sec / csc</span> 混在一起，<b>先全部改成 sin 和 cos</b>，再看能不能约分。</p>
+          <p><b>3. 有个小技巧先记住：</b><span class="m">÷ csc θ = ÷ (1/sin θ) = × sin θ</span>。
+             除以一个分数，等于乘它的倒数 —— 这一步能把分母直接变没，省掉一大堆分数运算。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">先把除法变乘法（关键的第一步）</div>
+            <div class="st-c">
+              <div class="eq m"><span class="fr"><span class="n">cot θ + tan θ</span><span class="d">csc θ</span></span>
+                = (cot θ + tan θ) × sin θ</div>
+              <p style="font-size:14px;color:#8b939c">因为 <span class="m">csc θ = 1/sin θ</span>，所以除以它等于乘以 <span class="m">sin θ</span>。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">用分配律展开</div>
+            <div class="st-c">
+              <div class="eq m">= cot θ · sin θ + tan θ · sin θ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">分别化简每一项</div>
+            <div class="st-c">
+              <p>第一项：<span class="m">cot θ · sin θ =
+                (cos θ / sin θ) · sin θ = cos θ</span></p>
+              <p>第二项：<span class="m">tan θ · sin θ =
+                (sin θ / cos θ) · sin θ =
+                <span class="fr"><span class="n">sin²θ</span><span class="d">cos θ</span></span></span></p>
+              <div class="eq m">原式 = cos θ +
+                <span class="fr"><span class="n">sin²θ</span><span class="d">cos θ</span></span></div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">通分合并成一个大分数</div>
+            <div class="st-c">
+              <div class="eq m">=
+                <span class="fr"><span class="n">cos²θ</span><span class="d">cos θ</span></span> +
+                <span class="fr"><span class="n">sin²θ</span><span class="d">cos θ</span></span>
+                =
+                <span class="fr"><span class="n">cos²θ + sin²θ</span><span class="d">cos θ</span></span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">用 <span class="m">sin²θ + cos²θ = 1</span> 收尾</div>
+            <div class="st-c">
+              <div class="eq m">=
+                <span class="fr"><span class="n">1</span><span class="d">cos θ</span></span>
+                = sec θ</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ (b) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">(cot θ + tan θ) ÷ csc θ = sec θ</span></p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ (a)(b) 两小题的易错点清单</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>把乘法写成分数。</b> <span class="m">cot²θ · sec²θ</span> 与
+                <span class="m">cot²θ / sec²θ</span> 是两个完全不同的式子，前者答案是 csc²θ，后者会变成
+                <span class="m">cot²θ·cos²θ</span>，全错。</li>
+            <li><span class="cross">✗</span> <b>只换一个括号就交卷。</b> 两步必须都换，缺一步无法约分。</li>
+            <li><span class="cross">✗</span> <b>除以 csc 当成除以 sin。</b> <span class="m">csc θ = 1/sin θ</span>，
+                除以 csc 是 × sin；搞反就变成 sin²θ，答案完全走偏。</li>
+            <li><span class="cross">✗</span> <b>通分时漏掉分母。</b> <span class="m">cos θ</span> 通分要写成
+                <span class="m">cos²θ / cos θ</span>，直接写成 <span class="m">cos²θ + sin²θ</span> 就丢了分母。</li>
+            <li><span class="check">✓</span> <b>自己验一下：</b>取 <span class="m">θ = 30°</span>，
+                (b) 左边 <span class="m">= (√3 + √3/3) ÷ 2 = (4√3/3)/2 = 2√3/3</span>，
+                右边 <span class="m">sec 30° = 2/√3 = 2√3/3</span>，相等 ✔</li>
+          </ul>
+        </div>
+
+        <div class="lib sol">
+          <b>一句话记住本题方法：</b>化简题 = 「<b>平方关系换名字</b>」+「<b>商的关系统一成 sin cos</b>」。
+          只要每换一步都问自己「换完之后能不能约分」，就不会卡住。
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="q4"> 这一题我已经能独立做出来了</label>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= 第 5 题 ======================= -->
+  <section id="q5">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum val">5</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">已知一个函数值 + 一个符号条件，求其余函数值<small>不用计算器，答案保留根式（surd form）</small></h3>
+          <div class="tags">
+            <span class="tag type">求值题</span>
+            <span class="tag marks">4 分</span>
+            <span class="tag mid">难度 ★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="qbox">
+          <p>If <span class="m">sec θ = 2</span> and <span class="m">cot θ &lt; 0</span>, find the value of
+             <span class="m">cot θ</span> and <span class="m">2 sin θ − tan θ</span> without using a calculator.</p>
+          <p style="font-size:13.5px;color:#7a6320">(Leave your answers in surd form.)　(4 marks)</p>
+          <p style="font-size:14px;color:#8b939c;margin-top:10px">
+            <b>中文题意：</b>已知 <span class="m">sec θ = 2</span> 且 <span class="m">cot θ &lt; 0</span>，
+            不用计算器求 <span class="m">cot θ</span> 和 <span class="m">2 sin θ − tan θ</span> 的值，答案写成根式形式。
+          </p>
+        </div>
+
+        <div class="block think sol">
+          <h4>💡 这类题的固定套路（只有三步，记住就会）</h4>
+          <p><b>第 1 步：定象限。</b>题目给了两个条件，一个"值"、一个"符号"。
+             值只能定出<b>两个</b>可能的象限，符号再把另一个删掉 → 唯一确定象限。</p>
+          <p><b>第 2 步：定符号。</b>象限定了，六个函数的正负号全部确定（查象限符号表）。</p>
+          <p><b>第 3 步：求值。</b>用「勾股三角形」或「平方关系」求出剩下两个函数。</p>
+          <p style="margin-top:12px;padding:10px 14px;background:#fff;border-radius:10px;border:1px dashed #cfdff0">
+             <b>本题的隐藏第一步：</b><span class="m">sec θ = 2</span> 不是 <span class="m">cos θ = 2</span>！
+             sec 是 cos 的<b>倒数</b>，先翻过来：<span class="m">cos θ = 1/2</span>。
+          </p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">用倒数关系，把 sec 换成 cos</div>
+            <div class="st-c">
+              <div class="eq m">cos θ =
+                <span class="fr"><span class="n">1</span><span class="d">sec θ</span></span> =
+                <span class="fr"><span class="n">1</span><span class="d">2</span></span></div>
+              <p style="font-size:14px;color:#8b939c">👉 <span class="m">cos θ &gt; 0</span> 说明 θ 在<b>第一或第四象限</b>（cos 为正的两个象限）。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">把 <span class="m">cot θ &lt; 0</span> 翻译成更好用的信息</div>
+            <div class="st-c">
+              <p>由倒数关系 <span class="m">tan θ · cot θ = 1</span>，两者<b>同号</b>，所以</p>
+              <div class="eq m">cot θ &lt; 0　⟺　tan θ &lt; 0</div>
+              <p><span class="m">tan θ &lt; 0</span> 说明 θ 在<b>第二或第四象限</b>。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">两个条件取交集 → 唯一确定象限</div>
+            <div class="st-c">
+              <p>「第一或第四」∩「第二或第四」= <b>第四象限</b></p>
+              <p>第四象限里：<span class="m">sin θ &lt; 0</span>，<span class="m">cos θ &gt; 0</span>（与眼算符合），
+                 <span class="m">tan θ &lt; 0</span> ✔</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">用平方关系求 sin θ（带符号！）</div>
+            <div class="st-c">
+              <p>由 <span class="m">sin²θ + cos²θ = 1</span>：</p>
+              <div class="eq m">sin²θ = 1 − cos²θ = 1 −
+                <span class="fr"><span class="n">1</span><span class="d">4</span></span> =
+                <span class="fr"><span class="n">3</span><span class="d">4</span></span></div>
+              <div class="eq m">sin θ = ±
+                <span class="fr"><span class="n">√3</span><span class="d">2</span></span></div>
+              <p>因为 θ 在第四象限，<span class="m">sin θ &lt; 0</span>，所以取负号：</p>
+              <div class="eq m">sin θ = −
+                <span class="fr"><span class="n">√3</span><span class="d">2</span></span></div>
+              <p style="font-size:14px;color:#b0413c"><b>⚠️ 这里是最容易丢分的一步：</b>直接写正的 <span class="m">√3/2</span>
+                  会被扣分，因为没有用上 <span class="m">cot θ &lt; 0</span> 这个条件。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">求 cot θ</div>
+            <div class="st-c">
+              <div class="eq m">cot θ =
+                <span class="fr"><span class="n">cos θ</span><span class="d">sin θ</span></span> =
+                <span class="fr"><span class="n">1/2</span><span class="d">−√3/2</span></span> =
+                −
+                <span class="fr"><span class="n">1</span><span class="d">√3</span></span> =
+                −
+                <span class="fr"><span class="n">√3</span><span class="d">3</span></span></div>
+              <p style="font-size:14px;color:#8b939c">👉 最后一步是<b>分母有理化</b>：分子分母同乘 <span class="m">√3</span>，
+                  <span class="m">1/√3 = √3/3</span>。题目要求 surd form，写成 <span class="m">−√3/3</span> 最标准。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">求 2 sin θ − tan θ（先把 tan θ 算出来）</div>
+            <div class="st-c">
+              <div class="eq m">tan θ =
+                <span class="fr"><span class="n">sin θ</span><span class="d">cos θ</span></span> =
+                <span class="fr"><span class="n">−√3/2</span><span class="d">1/2</span></span> = −√3</div>
+              <p>代入：</p>
+              <div class="eq m">2 sin θ − tan θ =
+                2 × (−
+                <span class="fr"><span class="n">√3</span><span class="d">2</span></span>)
+                − (−√3)
+                = −√3 + √3 = 0</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 第 5 题答案</h4>
+          <p style="font-size:1.1em">
+            <span class="m"><span class="hl">cot θ = −√3/3</span></span>（或写作 <span class="m">−1/√3</span>）<br>
+            <span class="m"><span class="hl">2 sin θ − tan θ = 0</span></span>
+          </p>
+        </div>
+
+        <div class="block tip sol">
+          <h4>🔺 换个更直观的做法：「勾股三角形法」（推荐基础一般的同学用）</h4>
+          <p>已知 <span class="m">sec θ = 2 = 2/1 = 斜边 / 邻边</span>，直接画一个直角三角形：</p>
+          <p style="padding-left:14px"><b>邻边 = 1，斜边 = 2</b> → 对边 = <span class="m">√(2² − 1²) = √3</span></p>
+          <p>再按象限<b>贴符号</b>。θ 在第四象限（x 正、y 负），所以把点放在 <span class="m">(1, −√3)</span>，于是</p>
+          <div class="eq m">cos θ =
+            <span class="fr"><span class="n">x</span><span class="d">r</span></span> =
+            <span class="fr"><span class="n">1</span><span class="d">2</span></span>，　
+            sin θ =
+            <span class="fr"><span class="n">y</span><span class="d">r</span></span> = −
+            <span class="fr"><span class="n">√3</span><span class="d">2</span></span>，　
+            tan θ =
+            <span class="fr"><span class="n">y</span><span class="d">x</span></span> = −√3
+          </div>
+          <p style="margin-top:10px">这样 sinθ、cosθ、tanθ 一次全部出来，<b>符号不会忘、勾股也不会算错</b>，
+             算 cot θ 只要取倒数即可。</p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 本题易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>把 <span class="m">sec θ = 2</span> 当成 <span class="m">cos θ = 2</span>。</b>
+                sec 是 cos 的倒数，必须先翻成 <span class="m">cos θ = 1/2</span>。</li>
+            <li><span class="cross">✗</span> <b>忽略 <span class="m">cot θ &lt; 0</span>，直接取第一象限。</b>
+                只写 <span class="m">sin θ = +√3/2</span> 会连锁导致后面三个值全错。</li>
+            <li><span class="cross">✗</span> <b>算 <span class="m">2 sin θ − tan θ</span> 时符号搞错。</b>
+                是 <span class="m">−√3 − (−√3) = 0</span>，不是 <span class="m">−√3 − √3 = −2√3</span>。
+                建议把 tan θ 单独算出来写成 <span class="m">−√3</span>，再按"减去一个负数"处理。</li>
+            <li><span class="cross">✗</span> <b>忘记有理化。</b> <span class="m">−1/√3</span> 虽然等价，但题目写了 surd form，
+                改写成 <span class="m">−√3/3</span> 更安全。</li>
+            <li><span class="check">✓</span> <b>验算技巧：</b>算完 <span class="m">cos θ = 1/2、sin θ = −√3/2</span> 后，
+                回代 <span class="m">cos²θ + sin²θ = 1/4 + 3/4 = 1</span>，说明数值没算错，
+                只剩符号问题需要靠象限确认。</li>
+          </ul>
+        </div>
+
+        <div class="lib sol">
+          <b>一句话记住：</b>「<b>值定两象限，符号定一个</b>」。凡是题目同时给"函数值"和"某个函数的正负"，
+          都是让你用符号去删掉多余的象限 —— 不看符号条件，答案就是残缺的。
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="q5"> 这一题我已经能独立做出来了</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 第 6 题 ======================= -->
+  <section id="q6">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum proof">6</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">证明三角恒等式<small>Prove the following</small></h3>
+          <div class="tags">
+            <span class="tag type">证明题</span>
+            <span class="tag marks">3 分</span>
+            <span class="tag mid">难度 ★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="qbox">
+          <p><span class="sub">(a)</span> Prove the following.</p>
+          <p style="text-align:center;margin:16px 0">
+            <span class="m" style="font-size:1.18em">
+              <span class="fr"><span class="n">csc θ</span><span class="d">csc θ + 1</span></span>
+              +
+              <span class="fr"><span class="n">csc θ</span><span class="d">csc θ − 1</span></span>
+              = 2 sec²θ
+            </span>
+          </p>
+          <p style="font-size:14px;color:#8b939c;text-align:center">
+            （原卷中该题被计算器照片遮挡了一部分，只可辨认出 (a)；如还有其他小问请补发照片）
+          </p>
+        </div>
+
+        <div class="block think sol">
+          <h4>💡 证明题的正确姿势 + 本题思路</h4>
+          <p><b>1. 证明题只能「改一边」。</b>通常从<b>复杂的一边</b>（左边）出发，一步步等价变形，
+             最后得到简单的一边（右边）。<b>绝不能</b>把两边同时改，也不能把要证的等式直接当已知条件用。</p>
+          <p><b>2. 看到两个分式相加 → 先通分。</b>这是本题唯一的核心动作。</p>
+          <p><b>3. 通分前先看一眼分母的结构：</b><span class="m">(csc θ + 1)</span> 和
+             <span class="m">(csc θ − 1)</span> 是<b>共轭式</b>，相乘正好是平方差
+             <span class="m">csc²θ − 1</span> —— 而 <span class="m">csc²θ − 1 = cot²θ</span>，
+             又和平方关系接上了。所以这条路一定是通的。</p>
+          <p><b>4. 目标长什么样？</b>右边是 <span class="m">2 sec²θ</span>，只含 cos。
+             所以最后一步一定是「把式子化成只含 cos 的形式」。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">通分：公分母 = 两个分母相乘（平方差）</div>
+            <div class="st-c">
+              <div class="eq m">左边 =
+                <span class="fr"><span class="n">csc θ (csc θ − 1) + csc θ (csc θ + 1)</span>
+                <span class="d">(csc θ + 1)(csc θ − 1)</span></span></div>
+              <p style="font-size:14px;color:#b0413c"><b>⚠️</b> 通分时<b>每一项的分子都要乘上另一项的分母</b>，
+                 不能直接把 <span class="m">csc θ + csc θ</span> 写上去。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">把分子展开（一正一负会互相抵消）</div>
+            <div class="st-c">
+              <div class="eq m">分子 = csc²θ − csc θ + csc²θ + csc θ = 2 csc²θ</div>
+              <p>分母用平方差：</p>
+              <div class="eq m">分母 = (csc θ + 1)(csc θ − 1) = csc²θ − 1²</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">用平方关系处理分母</div>
+            <div class="st-c">
+              <p>由 <span class="m">1 + cot²θ = csc²θ</span> 得</p>
+              <div class="eq m">csc²θ − 1 = cot²θ</div>
+              <div class="eq m">左边 =
+                <span class="fr"><span class="n">2 csc²θ</span><span class="d">cot²θ</span></span></div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">化成 sin、cos，约分（关键收尾）</div>
+            <div class="st-c">
+              <p>代入 <span class="m">csc²θ = 1/sin²θ</span>、<span class="m">cot²θ = cos²θ/sin²θ</span>：</p>
+              <div class="eq m">左边 =
+                <span class="fr"><span class="n">2 / sin²θ</span><span class="d">cos²θ / sin²θ</span></span>
+                =
+                <span class="fr"><span class="n">2</span><span class="d">sin²θ</span></span>
+                ×
+                <span class="fr"><span class="n">sin²θ</span><span class="d">cos²θ</span></span>
+              </div>
+              <p>分数除分数 = 乘倒数，<span class="m">sin²θ</span> 约掉：</p>
+              <div class="eq m">=
+                <span class="fr"><span class="n">2</span><span class="d">cos²θ</span></span>
+                = 2 ×
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span>
+                = 2 sec²θ</div>
+              <p>等于右边，<b>证毕（Q.E.D.）</b> ✔</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 完整证明（可直接抄进卷面）</h4>
+          <div class="eq m" style="text-align:left;font-size:1.02em;line-height:2.3">
+            左边 =
+              <span class="fr"><span class="n">csc θ (csc θ − 1) + csc θ (csc θ + 1)</span>
+              <span class="d">(csc θ + 1)(csc θ − 1)</span></span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+              <span class="fr"><span class="n">2 csc²θ</span><span class="d">csc²θ − 1</span></span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+              <span class="fr"><span class="n">2 csc²θ</span><span class="d">cot²θ</span></span>
+            <span style="color:#8b939c;font-size:.85em">（因为 csc²θ − 1 = cot²θ）</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+              <span class="fr"><span class="n">2</span><span class="d">sin²θ</span></span>
+              ÷
+              <span class="fr"><span class="n">cos²θ</span><span class="d">sin²θ</span></span>
+            &nbsp;&nbsp;&nbsp; =
+              <span class="fr"><span class="n">2</span><span class="d">cos²θ</span></span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2 sec²θ = 右边　∎
+          </div>
+        </div>
+
+        <div class="block note sol">
+          <h4>🔍 用具体角验算（自己检查证明对不对的最好办法）</h4>
+          <p>取 <span class="m">θ = 30° = π/6</span>，则 <span class="m">csc 30° = 2</span>，代入左边：</p>
+          <div class="eq m">左边 =
+            <span class="fr"><span class="n">2</span><span class="d">2 + 1</span></span> +
+            <span class="fr"><span class="n">2</span><span class="d">2 − 1</span></span>
+            =
+            <span class="fr"><span class="n">2</span><span class="d">3</span></span> + 2 =
+            <span class="fr"><span class="n">8</span><span class="d">3</span></span></div>
+          <div class="eq m">右边 = 2 sec²30° = 2 × (
+            <span class="fr"><span class="n">2</span><span class="d">√3</span></span>)² =
+            2 ×
+            <span class="fr"><span class="n">4</span><span class="d">3</span></span> =
+            <span class="fr"><span class="n">8</span><span class="d">3</span></span> ✔</div>
+          <p style="margin-top:8px">两边相等，说明恒等式确实成立。<b>证明题写完花 30 秒代一个角进去，
+             能立刻发现符号或系数错误 —— 这是性价比最高的检查方式。</b></p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 证明题易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>通分时少乘分子。</b> 写成
+                <span class="m">(csc θ + csc θ)/(csc²θ − 1)</span> 直接错。</li>
+            <li><span class="cross">✗</span> <b>平方差算错。</b> <span class="m">(csc θ + 1)(csc θ − 1) = csc²θ − 1</span>，
+                不是 <span class="m">csc²θ + 1</span>。</li>
+            <li><span class="cross">✗</span> <b>两边同时改。</b> 例如把左边通分、右边也改写，然后中间画个等号 ——
+                评分规则上这不算证明。正确做法：<b>左边 → 右边</b>，或写「左边 = … = 右边」。</li>
+            <li><span class="cross">✗</span> <b>过早化成 sin/cos。</b> 一开始就全换 sin/cos 当然也能做，但通分会变成
+                四层大分数，极易算错。<b>先利用 csc 的平方关系把结构"降一层"，再换 sin/cos</b>，才是省力路径。</li>
+            <li><span class="check">✓</span> 记住这条经验：<b>看见 (A+1)(A−1) 型的分母，就想着平方差 + 平方关系。</b>
+                本题刚好是这套组合。</li>
+          </ul>
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="q6"> 这一题我已经能独立做出来了</label>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= 第 7 题 ======================= -->
+  <section id="q7">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum eq">7</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">解三角方程<small>Solve the following equations, where 0 ≤ θ &lt; 2π</small></h3>
+          <div class="tags">
+            <span class="tag type">方程题</span>
+            <span class="tag marks">3 + 3 + 3 = 9 分</span>
+            <span class="tag mid">难度 ★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="qbox">
+          <p>Solve the following equations, where <span class="m">0 ≤ θ &lt; 2π</span>.</p>
+          <p><span class="sub">(a)</span> <span class="m">tan θ = cot(π/9)</span>　<span style="color:#a0a6ad">(3 marks)</span></p>
+          <p><span class="sub">(b)</span> <span class="m">2 csc(3π/2 − θ) + 3 sec(2π − θ) = 2</span>　<span style="color:#a0a6ad">(3 marks)</span></p>
+          <p><span class="sub">(c)</span> <span class="m">2 sin θ + 3 = 2 csc θ</span>　<span style="color:#a0a6ad">(3 marks)</span></p>
+        </div>
+
+        <div class="block note sol">
+          <h4>📌 解三角方程的总原则（三小题通用）</h4>
+          <p><b>① 统一：</b>方程里只能出现<b>一种</b>函数（最好是一种角的一种函数）。csc、sec、cot 一律换成 sin、cos。</p>
+          <p><b>② 求解：</b>变成 <span class="m">sin θ = k</span> 后，在 <span class="m">0 ≤ θ &lt; 2π</span> 内<b>一定有 0 个、1 个或 2 个</b>解，
+             用「象限 + 参考角」找全。</p>
+          <p><b>③ 检查定义域：</b>分母 <span class="m">sin θ ≠ 0</span>、<span class="m">cos θ ≠ 0</span>，舍根时别忘。</p>
+          <p><b>④ 检查范围：</b>算完把每个解都对照 <span class="m">0 ≤ θ &lt; 2π</span> 筛一遍。</p>
+        </div>
+
+        <!-- ---------- 7(a) ---------- -->
+        <h4 style="margin:30px 0 0;font-size:17px;color:#0e6b6b;border-left:4px solid #0e6b6b;padding-left:12px">
+          7(a)　<span class="m">tan θ = cot(π/9)</span></h4>
+
+        <div class="block think sol" style="margin-top:14px">
+          <h4>💡 思路</h4>
+          <p>方程两边要「同名」才好比。右边是 <b>cot</b>，左边是 <b>tan</b> —— 用诱导公式把 cot 换成 tan：
+             <span class="m">cot α = tan(π/2 − α)</span>。</p>
+          <p>换成同名之后，解 <span class="m">tan θ = tan α</span> 的公式是
+             <span class="m">θ = α + nπ</span>（<b>加 π，不是 2π</b>，因为 tan 的周期是 π）。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">把 cot 换成 tan</div>
+            <div class="st-c">
+              <div class="eq m">cot(<span class="fr"><span class="n">π</span><span class="d">9</span></span>)
+                = tan(<span class="fr"><span class="n">π</span><span class="d">2</span></span> −
+                <span class="fr"><span class="n">π</span><span class="d">9</span></span>)
+                = tan(<span class="fr"><span class="n">7π</span><span class="d">18</span></span>)</div>
+              <p style="font-size:14px;color:#8b939c">通分过程：<span class="m">π/2 − π/9 = 9π/18 − 2π/18 = 7π/18</span>。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">写出通解</div>
+            <div class="st-c">
+              <div class="eq m">tan θ = tan(<span class="fr"><span class="n">7π</span><span class="d">18</span></span>)
+                　⟹　θ = <span class="fr"><span class="n">7π</span><span class="d">18</span></span> + nπ，　n ∈ ℤ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">逐个代入 n，筛出落在 <span class="m">0 ≤ θ &lt; 2π</span> 的解</div>
+            <div class="st-c">
+              <table style="max-width:520px;margin:8px auto">
+                <thead><tr><th>n</th><th>θ 的值</th><th>约合的度数</th><th>是否在 [0, 2π)</th></tr></thead>
+                <tbody>
+                  <tr><td class="m">−1</td><td class="m">7π/18 − π = −11π/18</td><td>−110°</td><td class="neg">✗ 太小</td></tr>
+                  <tr style="background:#e8f5ef"><td class="m">0</td><td class="m">7π/18</td><td class="pos">70°</td><td class="pos">✔</td></tr>
+                  <tr style="background:#e8f5ef"><td class="m">1</td><td class="m">7π/18 + π = 25π/18</td><td class="pos">250°</td><td class="pos">✔</td></tr>
+                  <tr><td class="m">2</td><td class="m">43π/18</td><td>430°</td><td class="neg">✗ 超出 2π</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:14px;color:#8b939c">👉 <span class="m">25π/18 &lt; 36π/18 = 2π</span> ✔，
+                 而 <span class="m">43π/18 &gt; 2π</span> ✗。</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 7(a) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">θ = 7π/18　或　θ = 25π/18</span></p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 7(a) 易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>只写一个解。</b> 只写 <span class="m">θ = 7π/18</span> 是最常见的丢分原因，
+                题目给的是 3 分，通常 1 分给公式、<b>2 分给两个解</b>。</li>
+            <li><span class="cross">✗</span> <b>加 2π 而不是 π。</b> <span class="m">tan</span> 的周期是 <span class="m">π</span>，
+                加 2π 会漏掉 <span class="m">25π/18</span> 这个解。</li>
+            <li><span class="cross">✗</span> <b>把 <span class="m">cot α = tan(π/2 + α)</span> 记错。</b>
+                正确的是 <span class="m">cot α = tan(π/2 − α)</span>（余函数互换）。</li>
+          </ul>
+        </div>
+
+        <!-- ---------- 7(b) ---------- -->
+        <h4 style="margin:34px 0 0;font-size:17px;color:#0e6b6b;border-left:4px solid #0e6b6b;padding-left:12px">
+          7(b)　<span class="m">2 csc(3π/2 − θ) + 3 sec(2π − θ) = 2</span></h4>
+
+        <div class="block think sol" style="margin-top:14px">
+          <h4>💡 思路</h4>
+          <p>括号里是 <span class="m">3π/2 − θ</span>、<span class="m">2π − θ</span> 这种"怪角"，
+             要用<b>诱导公式</b>把它们变成只含 <span class="m">θ</span> 的形式。</p>
+          <p><b>最保险的办法（不用背口诀）：</b>用和差角公式硬展开，
+             <span class="m">sin(A − B) = sin A cos B − cos A sin B</span>，
+             其中 <span class="m">sin(3π/2) = −1</span>、<span class="m">cos(3π/2) = 0</span>，代进去立刻就出来了。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">化简 <span class="m">csc(3π/2 − θ)</span></div>
+            <div class="st-c">
+              <p>先算正弦（用和差角公式）：</p>
+              <div class="eq m">sin(<span class="fr"><span class="n">3π</span><span class="d">2</span></span> − θ)
+                = sin(<span class="fr"><span class="n">3π</span><span class="d">2</span></span>) cos θ
+                − cos(<span class="fr"><span class="n">3π</span><span class="d">2</span></span>) sin θ
+                = (−1)·cos θ − 0·sin θ = −cos θ</div>
+              <p>取倒数：</p>
+              <div class="eq m">csc(<span class="fr"><span class="n">3π</span><span class="d">2</span></span> − θ)
+                = <span class="fr"><span class="n">1</span><span class="d">−cos θ</span></span> = − sec θ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">化简 <span class="m">sec(2π − θ)</span></div>
+            <div class="st-c">
+              <p>cos 是偶函数、周期 2π：<span class="m">cos(2π − θ) = cos(−θ) = cos θ</span>，所以</p>
+              <div class="eq m">sec(2π − θ) = sec θ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">代回原方程</div>
+            <div class="st-c">
+              <div class="eq m">2(−sec θ) + 3 sec θ = 2</div>
+              <div class="eq m">sec θ = 2</div>
+              <p style="font-size:14px;color:#8b939c">👉 这一题到这里已经变成第 5 题的前半段了：<span class="m">sec θ = 2</span>。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">解出 θ（<span class="m">cos θ &gt; 0</span> → 第一、四象限，两解）</div>
+            <div class="st-c">
+              <div class="eq m">cos θ =
+                <span class="fr"><span class="n">1</span><span class="d">2</span></span>
+                ⟹ θ =
+                <span class="fr"><span class="n">π</span><span class="d">3</span></span>　或　θ = 2π −
+                <span class="fr"><span class="n">π</span><span class="d">3</span></span> =
+                <span class="fr"><span class="n">5π</span><span class="d">3</span></span></div>
+              <p style="font-size:14px;color:#8b939c">参考角 <span class="m">π/3</span>（cos 为正）；
+                 第一象限取 <span class="m">π/3</span>，第四象限取 <span class="m">2π − π/3 = 5π/3</span>。两个都在 <span class="m">[0, 2π)</span> 内 ✔</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 7(b) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">θ = π/3　或　θ = 5π/3</span></p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 7(b) 易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>符号写错：</b><span class="m">sin(3π/2 − θ) = −cos θ</span>，
+                不是 <span class="m">+cos θ</span>。记不清就现场展开，别硬背。</li>
+            <li><span class="cross">✗</span> <b>漏掉系数 2：</b>是 <span class="m">2 × (−sec θ)</span>，不是 <span class="m">−sec θ</span>。</li>
+            <li><span class="cross">✗</span> <b>只给一个解：</b><span class="m">cos θ = 1/2</span> 在
+                <span class="m">[0, 2π)</span> 内有 <b>两个</b>解，必须都写。</li>
+            <li><span class="cross">✗</span> <b>把 <span class="m">sec(2π − θ)</span> 当成 <span class="m">−sec θ</span>。</b>
+                sec 是<b>偶函数</b>，负号会被吃掉，答案是 <span class="m">+sec θ</span>。</li>
+          </ul>
+        </div>
+
+        <!-- ---------- 7(c) ---------- -->
+        <h4 style="margin:34px 0 0;font-size:17px;color:#0e6b6b;border-left:4px solid #0e6b6b;padding-left:12px">
+          7(c)　<span class="m">2 sin θ + 3 = 2 csc θ</span></h4>
+
+        <div class="block think sol" style="margin-top:14px">
+          <h4>💡 思路</h4>
+          <p>方程里同时有 <span class="m">sin θ</span> 和 <span class="m">csc θ</span>，它们是<b>互为倒数</b>。
+             处理这种方程的标准动作：<b>两边同乘 sin θ</b>，就变成关于 <span class="m">sin θ</span> 的一元二次方程。</p>
+          <p>先提醒自己：<span class="m">csc θ</span> 要有意义，必须 <span class="m">sin θ ≠ 0</span>，也就是
+             <span class="m">θ ≠ 0, π</span>。这一步写在卷面上能体现严谨性。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">注明定义域，然后两边同乘 sin θ</div>
+            <div class="st-c">
+              <p>因 <span class="m">csc θ = 1/sin θ</span>，原方程即</p>
+              <div class="eq m">2 sin θ + 3 =
+                <span class="fr"><span class="n">2</span><span class="d">sin θ</span></span>
+                　（sin θ ≠ 0）</div>
+              <div class="eq m">⟹ 2 sin²θ + 3 sin θ = 2</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">整理成一元二次方程</div>
+            <div class="st-c">
+              <div class="eq m">2 sin²θ + 3 sin θ − 2 = 0</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">因式分解（十字相乘）</div>
+            <div class="st-c">
+              <p>把 <span class="m">sin θ</span> 看成一个整体 <span class="m">x</span>：<span class="m">2x² + 3x − 2 = 0</span>。
+                 找两个数，乘积 <span class="m">= 2 × (−2) = −4</span>，和 <span class="m">= 3</span> → 是 <span class="m">4</span> 和 <span class="m">−1</span>：</p>
+              <div class="eq m">2x² + 4x − x − 2 = 2x(x + 2) − (x + 2) = (2x − 1)(x + 2)</div>
+              <p>换回 <span class="m">sin θ</span>：</p>
+              <div class="eq m">(2 sin θ − 1)(sin θ + 2) = 0</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">分别求解，并舍掉不可能的根</div>
+            <div class="st-c">
+              <p>① <span class="m">2 sin θ − 1 = 0 ⟹ sin θ = 1/2</span> ✔（在 <span class="m">[−1, 1]</span> 内）</p>
+              <p>② <span class="m">sin θ + 2 = 0 ⟹ sin θ = −2</span>　<span style="color:#b0413c"><b>舍去</b></span>，
+                 因为 <span class="m">−1 ≤ sin θ ≤ 1</span>，<span class="m">sin θ</span> 永远不可能等于 −2。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">由 <span class="m">sin θ = 1/2</span> 求全部解</div>
+            <div class="st-c">
+              <p><span class="m">sin θ &gt; 0</span> → 第一、第二象限；参考角 <span class="m">π/6</span>。</p>
+              <div class="eq m">θ =
+                <span class="fr"><span class="n">π</span><span class="d">6</span></span>　（第一象限）　或　
+                θ = π −
+                <span class="fr"><span class="n">π</span><span class="d">6</span></span> =
+                <span class="fr"><span class="n">5π</span><span class="d">6</span></span>　（第二象限）</div>
+              <p style="font-size:14px;color:#8b939c">两解都不等于 <span class="m">0</span> 或 <span class="m">π</span>，
+                 满足 <span class="m">sin θ ≠ 0</span> 的定义域要求 ✔</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 7(c) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">θ = π/6　或　θ = 5π/6</span></p>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 7(c) 易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>忘记两边同乘 sin θ，直接移项。</b> 那样会得到
+                <span class="m">2 sin θ − 2 csc θ = −3</span>，仍然是混合函数，卡死。</li>
+            <li><span class="cross">✗</span> <b>因式分解符号错。</b> 常见错写成
+                <span class="m">(2 sin θ + 1)(sin θ − 2)</span>，展开是
+                <span class="m">2 sin²θ − 3 sin θ − 2</span>，中间项符号反了。
+                <b>养成习惯：分解完立刻展开验一遍。</b></li>
+            <li><span class="cross">✗</span> <b>不写「舍去」。 </b> <span class="m">sin θ = −2</span> 必须明确写出舍去的理由，
+                否则阅卷老师可能认为你没意识到 <span class="m">sin θ</span> 有范围限制。</li>
+            <li><span class="cross">✗</span> <b>只写 <span class="m">θ = π/6</span>。</b>
+                <span class="m">sin θ = 1/2</span> 在两个象限都成立 → 必须有两个解。</li>
+            <li><span class="check">✓</span> <b>通用结论：</b>方程整理成
+                <span class="m">sin θ = k</span> 后，若 <span class="m">|k| = 1</span> 则 1 个解（在 0~2π 内）；
+                若 <span class="m">0 &lt; |k| &lt; 1</span> 则 2 个解；若 <span class="m">k = 0</span> 则 2 个解
+                （<span class="m">0</span> 和 <span class="m">π</span>）；若 <span class="m">|k| &gt; 1</span> 则无解。</li>
+          </ul>
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="q7"> 这三个小题我已经能独立做出来了</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 第 8 题 ======================= -->
+  <section id="q8">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum proof">8</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">先证明、再「hence」解方程<small>Prove + Hence solve · 综合题</small></h3>
+          <div class="tags">
+            <span class="tag type">证明 + 方程</span>
+            <span class="tag marks">6 分</span>
+            <span class="tag hard">难度 ★★★★</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <div class="qbox">
+          <p><span class="sub">(a)</span> Prove that
+             <span class="m">sec²θ − tan²θ − 2 sin²θ + 1 = 2 cos²θ</span>.</p>
+          <p><span class="sub">(b)</span> Hence solve the equation
+             <span class="m">sec²θ csc θ −
+               <span class="fr" style="font-size:.92em"><span class="n">sin θ</span><span class="d">cos²θ</span></span>
+               − 2 sin θ + csc θ = −3</span>,
+             where <span class="m">π &lt; θ &lt; 3π/2</span>.　(Express your answer in terms of π.)</p>
+          <p style="color:#a0a6ad;text-align:right">(6 marks)</p>
+        </div>
+
+        <div class="block note sol">
+          <h4>📌 「Hence」是什么意思？</h4>
+          <p><b>Hence（据此 / 由此）= 必须用上一小问的结果。</b>看到 hence，说明 (a) 的结论是 (b) 的钥匙；
+             如果不使用 (a) 的结果直接硬算，通常要算很久或者算不出来，评分上也可能拿不到分。</p>
+          <p>本题 (a) 给出的关键信息其实是一句话：<b>「<span class="m">sec²θ − tan²θ</span> 就是 <span class="m">1</span>」</b>
+             以及 <b>「<span class="m">2 − 2sin²θ</span> 就是 <span class="m">2cos²θ</span>」</b>。
+             这两个"转换器"在 (b) 里会立刻用上。</p>
+        </div>
+
+        <!-- ---------- 8(a) ---------- -->
+        <h4 style="margin:30px 0 0;font-size:17px;color:#0e6b6b;border-left:4px solid #0e6b6b;padding-left:12px">
+          8(a)　证明</h4>
+
+        <div class="block think sol" style="margin-top:14px">
+          <h4>💡 思路：从左边的「最熟的一组」下手</h4>
+          <p>左边有四项：<span class="m">sec²θ − tan²θ − 2sin²θ + 1</span>。
+             第一反应应该是抓住 <span class="m">sec²θ − tan²θ</span> —— 这是平方关系的经典组合，<b>直接等于 1</b>。</p>
+          <p>右边是 <span class="m">2cos²θ</span>，只含 cos。所以路线是：把左边全部换成「1 和 sin」，再用
+             <span class="m">1 − sin²θ = cos²θ</span> 收尾。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">用平方关系打包第一组</div>
+            <div class="st-c">
+              <p>由 <span class="m">1 + tan²θ = sec²θ</span>，移项得</p>
+              <div class="eq m">sec²θ − tan²θ = 1</div>
+              <p>代回左边：</p>
+              <div class="eq m">左边 = 1 − 2 sin²θ + 1</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">合并常数项</div>
+            <div class="st-c">
+              <div class="eq m">= 2 − 2 sin²θ</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">提公因数 2，再用 <span class="m">1 − sin²θ = cos²θ</span></div>
+            <div class="st-c">
+              <div class="eq m">= 2(1 − sin²θ) = 2 cos²θ</div>
+              <p>等于右边，<b>证毕</b> ✔</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 8(a) 完整证明</h4>
+          <div class="eq m" style="text-align:left;line-height:2.3;font-size:1.05em">
+            左边 = <span class="hl">sec²θ − tan²θ</span> − 2 sin²θ + 1<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = <span class="hl">1</span> − 2 sin²θ + 1
+            <span style="color:#8b939c;font-size:.85em">（因为 1 + tan²θ = sec²θ）</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2 − 2 sin²θ<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2(1 − sin²θ)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2 cos²θ = 右边　∎
+          </div>
+        </div>
+
+        <!-- ---------- 8(b) ---------- -->
+        <h4 style="margin:34px 0 0;font-size:17px;color:#0e6b6b;border-left:4px solid #0e6b6b;padding-left:12px">
+          8(b)　Hence solve</h4>
+
+        <div class="block think sol" style="margin-top:14px">
+          <h4>💡 思路：先「清理」方程，再想办法变成 sin 的二次方程</h4>
+          <p>方程有四项，看起来吓人，但注意<b>前两项的分母都含 <span class="m">cos²θ</span></b>：</p>
+          <p style="padding-left:14px"><span class="m">sec²θ csc θ =
+             <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span> ·
+             <span class="fr"><span class="n">1</span><span class="d">sin θ</span></span></span>，　
+             <span class="m"><span class="fr"><span class="n">sin θ</span><span class="d">cos²θ</span></span></span>
+          </p>
+          <p>→ <b>把前两项合并成一项</b>，这是整道题的关键突破口。合并后你会发现它神奇地变成
+             <span class="m">csc θ</span>，方程立刻变简单。</p>
+          <p>然后两边乘 <span class="m">sin θ</span> 化成 sin 的二次方程 —— <b>这时 (a) 的结论 <span class="m">2 − 2sin²θ = 2cos²θ</span> 就派上用场了</b>。</p>
+        </div>
+
+        <ol class="steps sol">
+          <li>
+            <div class="st-t">把前两项提公因式 <span class="m">1/cos²θ</span> 合并</div>
+            <div class="st-c">
+              <div class="eq m">sec²θ csc θ −
+                <span class="fr"><span class="n">sin θ</span><span class="d">cos²θ</span></span>
+                =
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span> ·
+                <span class="fr"><span class="n">1</span><span class="d">sin θ</span></span>
+                −
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span> · sin θ</div>
+              <div class="eq m">=
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span>
+                (
+                <span class="fr"><span class="n">1</span><span class="d">sin θ</span></span>
+                − sin θ )</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">括号内通分，并用 <span class="m">1 − sin²θ = cos²θ</span></div>
+            <div class="st-c">
+              <div class="eq m"><span class="fr"><span class="n">1</span><span class="d">sin θ</span></span>
+                − sin θ =
+                <span class="fr"><span class="n">1 − sin²θ</span><span class="d">sin θ</span></span>
+                =
+                <span class="fr"><span class="n">cos²θ</span><span class="d">sin θ</span></span></div>
+              <p>乘上外面的 <span class="m">1/cos²θ</span>：</p>
+              <div class="eq m">=
+                <span class="fr"><span class="n">1</span><span class="d">cos²θ</span></span> ×
+                <span class="fr"><span class="n">cos²θ</span><span class="d">sin θ</span></span>
+                =
+                <span class="fr"><span class="n">1</span><span class="d">sin θ</span></span>
+                = csc θ　🎉</div>
+              <p style="font-size:14px;color:#1c7a5c">前两项整体化简成 <span class="m">csc θ</span>，方程一下子只剩三项了。</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">代回原方程，得到一个干净的式子</div>
+            <div class="st-c">
+              <div class="eq m">csc θ − 2 sin θ + csc θ = −3</div>
+              <div class="eq m">2 csc θ − 2 sin θ = −3</div>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">两边同乘 <span class="m">sin θ</span>（<span class="m">sin θ ≠ 0</span>）</div>
+            <div class="st-c">
+              <p>因为 <span class="m">csc θ = 1/sin θ</span>，乘 <span class="m">sin θ</span> 得</p>
+              <div class="eq m">2 − 2 sin²θ = −3 sin θ</div>
+              <p style="font-size:14px;color:#8b6512;background:#fdf4e3;border:1px solid #f0dcbb;border-radius:8px;padding:8px 12px">
+                👆 <b>这就是 hence 的用处：</b>左边 <span class="m">2 − 2sin²θ</span> 正是 (a) 中间出现的那一项，
+                (a) 告诉我们它 <span class="m">= 2cos²θ</span>。所以这一步你不用再想"该不该换成 cos"，
+                (a) 已经示范过了 —— 直接整理成 sin 的二次方程即可。
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">整理成 sin 的一元二次方程并分解</div>
+            <div class="st-c">
+              <div class="eq m">2 sin²θ − 3 sin θ − 2 = 0</div>
+              <div class="eq m">(2 sin θ + 1)(sin θ − 2) = 0</div>
+              <p style="font-size:14px;color:#8b939c">验算分解：
+                 <span class="m">2sin²θ − 4sinθ + sinθ − 2 = 2sin²θ − 3sinθ − 2</span> ✔</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">舍根</div>
+            <div class="st-c">
+              <p>① <span class="m">sin θ = −2</span>　<span style="color:#b0413c"><b>舍去</b></span>（超出 <span class="m">[−1, 1]</span>）</p>
+              <p>② <span class="m">sin θ = −1/2</span>　✔</p>
+            </div>
+          </li>
+          <li>
+            <div class="st-t">在限定范围 <span class="m">π &lt; θ &lt; 3π/2</span> 内定解（关键一步）</div>
+            <div class="st-c">
+              <p><span class="m">sin θ &lt; 0</span> → 第三或第四象限；题目已经限定 <b>第三象限</b>（<span class="m">π ~ 3π/2</span>），
+                 所以只取第三象限这一个解。</p>
+              <p>第三象限里 sin 为负、cos 也为负，参考角是 <span class="m">π/6</span>：</p>
+              <div class="eq m">θ = π +
+                <span class="fr"><span class="n">π</span><span class="d">6</span></span> =
+                <span class="fr"><span class="n">7π</span><span class="d">6</span></span></div>
+              <p>检查范围：<span class="m">7π/6 ≈ 210°</span>，确实满足
+                 <span class="m">180° &lt; 210° &lt; 270°</span> ✔</p>
+              <p style="font-size:14px;color:#b0413c"><b>⚠️</b> 若题目范围是 <span class="m">0 ≤ θ &lt; 2π</span>，
+                 那还要加一个 <span class="m">11π/6</span>（第四象限）。<b>务必先看范围再写答案。</b></p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="block ans sol">
+          <h4>✅ 8(b) 答案</h4>
+          <p style="font-size:1.12em"><span class="m hl">θ = 7π/6</span></p>
+        </div>
+
+        <div class="block note sol">
+          <h4>🔍 验算（强烈建议养成这个习惯）</h4>
+          <p>把 <span class="m">θ = 7π/6</span> 代回原方程左边：
+             <span class="m">sin θ = −1/2</span>、<span class="m">cos θ = −√3/2</span>、
+             <span class="m">csc θ = −2</span>、<span class="m">sec²θ = 4/3</span>。</p>
+          <div class="eq m">sec²θ csc θ = (4/3)(−2) = −8/3</div>
+          <div class="eq m"><span class="fr"><span class="n">sin θ</span><span class="d">cos²θ</span></span>
+            = <span class="fr"><span class="n">−1/2</span><span class="d">3/4</span></span> = −2/3</div>
+          <div class="eq m">−2 sin θ = 1，　csc θ = −2</div>
+          <div class="eq m">左边 = (−8/3) − (−2/3) + 1 + (−2) = −2 − 1 = <span class="hl">−3</span> = 右边 ✔</div>
+        </div>
+
+        <div class="block err sol">
+          <h4>⚠️ 第 8 题易错点</h4>
+          <ul class="plain">
+            <li><span class="cross">✗</span> <b>(a) 里忘了「+1」。</b>
+                有同学把 <span class="m">sec²θ − tan²θ = 1</span> 写对，却漏掉式子里原有的 <span class="m">+1</span>，
+                结果得到 <span class="m">1 − 2sin²θ = cos²θ − sin²θ</span>，证不出来。</li>
+            <li><span class="cross">✗</span> <b>(b) 一开始就全员化成 sin/cos。</b>
+                这样会出现 <span class="m">1/(cos²θ sinθ)</span> 这类四层分式，越算越乱。
+                <b>正确顺序：先提公因式合并同分母项 → 再统一函数。</b></li>
+            <li><span class="cross">✗</span> <b>合并前两项时漏掉负号。</b> 是
+                <span class="m">(1/cos²θ)(1/sinθ − sinθ)</span>，括号里是<b>减</b>。</li>
+            <li><span class="cross">✗</span> <b>忘记用 hence。</b> 直接算出 <span class="m">2sin²θ − 3sinθ − 2 = 0</span> 也能得答案，
+                但把 <span class="m">2 − 2sin²θ</span> 换成 <span class="m">2cos²θ</span> 再整理，才是题目设计的路径；
+                建议在卷面上明确写出「By (a), <span class="m">2 − 2sin²θ = 2cos²θ</span>」这句话，阅卷会更容易给分。</li>
+            <li><span class="cross">✗</span> <b>不看范围写两个解。</b>
+                范围是 <span class="m">π &lt; θ &lt; 3π/2</span>，只有第三象限，答案只能有一个
+                <span class="m">7π/6</span>。</li>
+            <li><span class="check">✓</span> <b>答案形式：</b>题目要求 "in terms of π"，必须写
+                <span class="m">7π/6</span>，不能写 <span class="m">210°</span>。</li>
+          </ul>
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="q8"> 这一题我已经能独立做出来了</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 总结 ======================= -->
+  <section id="sum">
+    <div class="card">
+      <div class="card-hd">
+        <div class="qnum" style="background:linear-gradient(150deg,#c58a2e,#8f5f10);box-shadow:0 6px 14px -6px rgba(167,107,22,.7)">✓</div>
+        <div class="qhd-main">
+          <h3 class="qhd-title">总结与自测<small>把这 8 个小题的「动作」整理成 checklist</small></h3>
+          <div class="tags">
+            <span class="tag type">复盘</span>
+            <span class="tag easy">做完题 5 分钟过一遍</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-bd">
+
+        <h4 style="margin:0 0 8px;font-size:15.5px;color:#0e6b6b">一、五种题型，五个固定动作</h4>
+        <table>
+          <thead>
+            <tr><th style="width:22%">看到什么</th><th style="width:38%">第一个动作</th><th>为什么</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="q">化简题<br><span style="font-weight:400;font-size:13px">（第 4 题）</span></td>
+                <td>找「平方 ± 1」结构，用 <span class="m">1+tan²=sec²</span>、<span class="m">1+cot²=csc²</span> 换名字</td>
+                <td>换完才能约分，不换就永远是混合函数</td></tr>
+            <tr><td class="q">证明题<br><span style="font-weight:400;font-size:13px">（第 6 题）</span></td>
+                <td>从复杂的一边出发，两个分式先通分</td>
+                <td>只能改一边，否则不算证明</td></tr>
+            <tr><td class="q">求值题<br><span style="font-weight:400;font-size:13px">（第 5 题）</span></td>
+                <td>先翻倒数 → 定象限 → 定符号 → 勾股求值</td>
+                <td>象限决定符号，符号错就全错</td></tr>
+            <tr><td class="q">解方程<br><span style="font-weight:400;font-size:13px">（第 7 题）</span></td>
+                <td>先统一成一种函数，再用诱导公式 / 同乘消掉倒数</td>
+                <td>混合函数没法用求根公式</td></tr>
+            <tr><td class="q">证明 + Hence<br><span style="font-weight:400;font-size:13px">（第 8 题）</span></td>
+                <td>先从 (a) 里抄出「转换器」，再想它怎么让 (b) 变简单</td>
+                <td>hence 不用上一问 = 丢分</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin:26px 0 8px;font-size:15.5px;color:#0e6b6b">二、答案速查表</h4>
+        <table>
+          <thead><tr><th style="width:16%">题号</th><th style="width:52%">答案</th><th>关键一步</th></tr></thead>
+          <tbody>
+            <tr><td class="q">4(a)</td><td class="m">csc²θ</td><td>csc²θ−1 = cot²θ，tan²θ+1 = sec²θ，相乘后约掉 cos²θ</td></tr>
+            <tr><td class="q">4(b)</td><td class="m">sec θ</td><td>÷ csc θ 改写成 × sin θ</td></tr>
+            <tr><td class="q">5</td><td class="m">cot θ = −√3/3；2sinθ − tanθ = 0</td><td>两条件取交集 → 第四象限</td></tr>
+            <tr><td class="q">6(a)</td><td>已证（左边 = 2sec²θ）</td><td>通分 → 平方差 → csc²θ−1 = cot²θ</td></tr>
+            <tr><td class="q">7(a)</td><td class="m">θ = 7π/18，25π/18</td><td>cot(π/9) = tan(7π/18)，加 nπ</td></tr>
+            <tr><td class="q">7(b)</td><td class="m">θ = π/3，5π/3</td><td>csc(3π/2−θ) = −secθ，化简得 secθ = 2</td></tr>
+            <tr><td class="q">7(c)</td><td class="m">θ = π/6，5π/6</td><td>乘 sinθ → (2sinθ−1)(sinθ+2) = 0</td></tr>
+            <tr><td class="q">8(a)</td><td>已证（左边 = 2cos²θ）</td><td>sec²θ − tan²θ = 1</td></tr>
+            <tr><td class="q">8(b)</td><td class="m">θ = 7π/6</td><td>前两项合并 = cscθ，再乘 sinθ 化成二次</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin:26px 0 8px;font-size:15.5px;color:#0e6b6b">三、交卷前的 6 条自查（每条 5 秒）</h4>
+        <ul class="plain" style="list-style:none;padding-left:0">
+          <li>☐　<b>象限条件用了吗？</b>题目给了符号（如 <span class="m">cot θ &lt; 0</span>），答案就必须带上对应的符号。</li>
+          <li>☐　<b>解写全了吗？</b>在 <span class="m">[0, 2π)</span> 内，<span class="m">sin/cos</span> 型方程常有<b>两个</b>解。</li>
+          <li>☐　<b>周期用对了吗？</b><span class="m">tan / cot</span> 加 <span class="m">nπ</span>，<span class="m">sin / cos</span> 加 <span class="m">2nπ</span>。</li>
+          <li>☐　<b>不可能的根舍掉了吗？</b><span class="m">sin θ = −2</span>、<span class="m">cos θ = 1.5</span> 之类一律舍去，并写理由。</li>
+          <li>☐　<b>范围检查了吗？</b>题目限定的 <span class="m">0 ≤ θ &lt; 2π</span> 或 <span class="m">π &lt; θ &lt; 3π/2</span> 要逐个代。</li>
+          <li>☐　<b>证明题只改了一边吗？</b>「左边 = … = 右边」的写法最稳。</li>
+        </ul>
+
+        <h4 style="margin:26px 0 8px;font-size:15.5px;color:#0e6b6b">四、给你的一点建议（基础一般也能做到）</h4>
+        <div class="lib" style="background:#e7f2f1;border-color:#c9e3df">
+          <p style="margin:0 0 10px"><b>1. 先背 6 组公式，不要边做边翻。</b>
+             第 0 节的「倒数 / 商 / 平方 / 变形 / 诱导 / 周期」六组背到滚瓜烂熟，
+             这 8 个小题会有一半的难度直接消失。</p>
+          <p style="margin:0 0 10px"><b>2. 化简题只用一条铁律：全部化成 sin 和 cos。</b>
+             虽然有时不是最短路径，但作为基础阶段，这是最不会出错的方法。等熟练了再学"偷懒"。</p>
+          <p style="margin:0 0 10px"><b>3. 每道题都要"回头看"。</b>
+             化简题：取 <span class="m">θ = 30°</span> 代进去验算；证明题：取一个角代两边；
+             方程题：把解代回原式。这个习惯能把你"会做但算错"的题救回来，
+             往往比多刷十道新题更有效。</p>
+          <p style="margin:0"><b>4. 错题只记一句话。</b>
+             比如「cot θ &lt; 0 ⟺ tan θ &lt; 0，用于删象限」，写一行就够，别抄整道题。</p>
+        </div>
+
+        <label class="done"><input type="checkbox" data-done="sum"> 这份拆解我已经完整过了一遍</label>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    三角函数恒等式与方程 · 逐题拆解　|　依据上传试卷第 4 ~ 8 题整理<br>
+    <span style="font-size:12px;color:#b6bcc3">
+      原卷部分内容被计算器照片遮挡，如第 6 题还有 (b)(c) 等小问，补发照片后可继续补充拆解。
+    </span>
+  </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  // 阅读进度条
+  var prog = document.getElementById('prog');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // 目录高亮
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function setActive(){
+    var best = 0, bestTop = -1e9;
+    secs.forEach(function(s, i){
+      if(!s) return;
+      var top = s.getBoundingClientRect().top;
+      if(top < 130 && top > bestTop){ bestTop = top; best = i; }
+    });
+    links.forEach(function(a, i){ a.classList.toggle('active', i === best); });
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+
+  // 只看题目模式
+  var btn = document.getElementById('modeBtn');
+  btn.addEventListener('click', function(){
+    var solo = document.body.classList.toggle('solo');
+    btn.textContent = solo ? '👀 恢复显示完整解答' : '🙈 先只看题目，自己试试';
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // 掌握进度（localStorage 记录）
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-done]'));
+  var cntEl = document.getElementById('cnt');
+  var barEl = document.getElementById('bar');
+  function key(k){ return 'trig_ws_' + k; }
+  function refresh(){
+    var n = boxes.filter(function(b){ return b.checked; }).length;
+    cntEl.textContent = n;
+    barEl.style.width = (n / boxes.length * 100) + '%';
+  }
+  boxes.forEach(function(b){
+    try{ b.checked = localStorage.getItem(key(b.dataset.done)) === '1'; }catch(e){}
+    b.addEventListener('change', function(){
+      try{ localStorage.setItem(key(b.dataset.done), b.checked ? '1' : '0'); }catch(e){}
+      refresh();
+    });
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>
